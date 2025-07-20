@@ -47,26 +47,25 @@ docker compose version
 
 ## Project Structure
 
-project-root/
-├── frontend/ # React frontend source code
-├── backend/ # Node.js backend source code
-├── compose.yaml # Multi-service orchestration file
-└── README.Docker.md # This documentation
+*project-root/*
+- frontend/ # React frontend source code
+- backend/ # Node.js backend source code
+- compose.yaml # Multi-service orchestration file
+- README.Docker.md # This documentation
+- README.md # Basic Documentation
 
 ## Setup Instructions
 
-- 1. Clone the Repository
+- Clone the Repository
 
 ```bash
 git clone https://github.com/<your-username>/pass-pilot.git
 cd pass-pilot
 ```
 
-- 2. Configure Environment Variables
+- Create a .env file in both the frontend/ and backend/ directories as needed.
 
-Create a .env file in both the frontend/ and backend/ directories as needed.
-
-### Use .env.sample given in both directories to populate your .env file
+- Use .env.sample given in both directories to populate your .env file
 
 ## Running the Application
 
@@ -91,15 +90,15 @@ To build and run containers individually:
 - Build the Backend:
 
 ```bash
-docker build -t pass-pilot-backend ./backend
-docker run -p 3000:3000 pass-pilot-backend
+docker build -t backend ./backend
+docker run -p 3000:3000 backend
 ```
 
 - Build the Frontend:
 
 ```bash
-docker build -t pass-pilot-frontend ./frontend
-docker run -p 5173:5173 pass-pilot-frontend
+docker build -t frontend ./frontend
+docker run -p 5173:5173 frontend
 ```
 
 ### Stopping the Application
@@ -121,14 +120,14 @@ docker container stop $(docker container ls --quiet --filter ancestor=pass-pilot
 
 Problem Solution
 
-- Port Already in Use : Change port in docker-compose.yml or .env
-- Build Fails : Check Dockerfile, .dockerignore, or rebuild with --no-cache
-- MongoDB Fails : Ensure correct Atlas URI and whitelist IPs in MongoDB Atlas
-- Container Crashes : View logs: **docker container logs <container_id>**
+- **Port Already in Use** : Change port in docker-compose.yml or .env
+- **Build Fails** : Check Dockerfile, .dockerignore, or rebuild with --no-cache
+- **MongoDB Fails** : Ensure correct Atlas URI and whitelist IPs in MongoDB Atlas
+- **Container Crashes** : View logs: **docker container logs <container_id>**
 
 ### Contributing
 
-I welcome your contributions!
+**I welcome your contributions!**
 
 - Fork the repository
 

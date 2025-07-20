@@ -1,123 +1,143 @@
-# Pass-Pilot : Your own password manager
-## Docker Setup
+# Pass-Pilot: Your Own Password Manager
 
-- This repository contains a dockerized Pass-Pilot application. 
-- This README provides instructions for setting up, building, and running the application using Docker and Docker Compose.
+Welcome to **Pass-Pilot**, your secure and intuitive password manager.
+This document will guide you through setting up, building, and running the application using **Docker and Docker Compose.**
 
-### Table of Contents
+## Table of Contents
 
 - Overview
 - Prerequisites
 - Project Structure
 - Setup Instructions
 - Running the Application
+- Using Docker Compose (Recommended)
+- Using Docker Directly
 - Stopping the Application
 - Troubleshooting
 - Contributing
-- License
 
 ## Overview
 
-- Pass-Pilot is a [brief description of your application, e.g., "web application built with Node.js and Express, providing a REST API for managing user data"]. 
-- This repository includes a Dockerfile for containerizing the application and a docker-compose.yml for orchestrating services.
+**Pass-Pilot** is a full-stack password manager application. It consists of:
+
+- A React-based frontend for user interaction
+
+- A Node.js + Express backend providing secure REST APIs
+
+- Integration with MongoDB Atlas for persistent data storage
+
+The app is fully containerized using Docker, and managed with Docker Compose for easy orchestration of services.
+
+---
 
 ## Prerequisites
 
-## Docker: Install Docker from Docker's official website. 
+Ensure the following are installed on your system:
 
-- Ensure the Docker CLI and Docker Compose plugin are available.
+- Docker
 
-Verify installation:
-docker version
+- Docker Compose
+
+✅ Verify Installation:
+
+```bash
+docker --version
 docker compose version
+```
 
-Project Structure
-├── Dockerfile          # Defines the Docker image for the application
-├── .dockerignore       # Specifies files to exclude from the Docker build
-├── docker-compose.yml  # Defines services, networks, and volumes
-├── [other project files, e.g., src/, app/, etc.]
-└── README.md           # This file
+## Project Structure
 
-Setup Instructions
+project-root/
+├── frontend/ # React frontend source code
+├── backend/ # Node.js backend source code
+├── compose.yaml # Multi-service orchestration file
+└── README.Docker.md # This documentation
 
-Clone the Repository:
-git clone https://github.com/[your-username]/[your-repo-name].git
-cd [your-repo-name]
+## Setup Instructions
 
+- 1. Clone the Repository
 
-Configure Environment Variables:
+```bash
+git clone https://github.com/<your-username>/pass-pilot.git
+cd pass-pilot
+```
 
-Create a .env file in the root directory (if required).
-Example .env:PORT=3000
-DATABASE_URL=[your-database-connection-string]
-[other environment variables]
+- 2. Configure Environment Variables
 
+Create a .env file in both the frontend/ and backend/ directories as needed.
 
-Ensure .env is listed in .dockerignore to prevent it from being copied into the image.
+### Use .env.sample given in both directories to populate your .env file
 
+## Running the Application
 
-Build the Docker Image:
-docker build -t [your-app-name]:latest .
+### Using Docker Compose (Recommended)
 
+This method spins up both frontend and backend together.
 
-
-Running the Application
-Option 1: Using Docker Compose (Recommended)
-
-Start the application and its services:
+```bash
 docker compose up --build
+```
 
-This builds and starts all services defined in docker-compose.yml.
+**Access the app:**
 
-Access the application:
+- Frontend: http://localhost:5173
 
-Open your browser at http://localhost:[port] (replace [port] with the port in docker-compose.yml or .env, e.g., 3000).
-[Add specific endpoints, e.g., "API available at http://localhost:3000/api"]
+- Backend API: http://localhost:3000/api
 
+### Using Docker Directly
 
+To build and run containers individually:
 
-Option 2: Using Docker Directly
+- Build the Backend:
 
-Run a container:
-docker run --publish [host-port]:[container-port] [your-app-name]:latest
+```bash
+docker build -t pass-pilot-backend ./backend
+docker run -p 3000:3000 pass-pilot-backend
+```
 
-Example:
-docker run --publish 3000:3000 [your-app-name]:latest
+- Build the Frontend:
 
+```bash
+docker build -t pass-pilot-frontend ./frontend
+docker run -p 5173:5173 pass-pilot-frontend
+```
 
-Access the application as described above.
+### Stopping the Application
 
+- Using Docker Compose:
 
-Stopping the Application
-
-Using Docker Compose:Stop and remove containers, networks, and volumes:
+```bash
 docker compose down
+```
 
+- Using Docker CLI:
 
-Using Docker Directly:Stop the running container:
-docker container stop $(docker container ls --quiet --filter ancestor=[your-app-name]:latest)
+```bash
+docker container stop $(docker container ls --quiet --filter ancestor=pass-pilot-backend)
+docker container stop $(docker container ls --quiet --filter ancestor=pass-pilot-frontend)
+```
 
-Find the container ID:
-docker container ls
+### Troubleshooting
 
+Problem Solution
 
+- Port Already in Use : Change port in docker-compose.yml or .env
+- Build Fails : Check Dockerfile, .dockerignore, or rebuild with --no-cache
+- MongoDB Fails : Ensure correct Atlas URI and whitelist IPs in MongoDB Atlas
+- Container Crashes : View logs: **docker container logs <container_id>**
 
-Troubleshooting
+### Contributing
 
-Port Conflicts:Modify the host port in docker-compose.yml or the docker run command (e.g., --publish 8080:3000).
-Build Errors:Check Dockerfile and .dockerignore for issues. View build logs:docker build -t [your-app-name]:latest .
+I welcome your contributions!
 
+- Fork the repository
 
-Container Logs:Check runtime errors:docker container logs <container_id>
+- Create a new branch: **git checkout -b feature/my-feature**
 
+- Make changes and commit: **git commit -m "Add my feature"**
 
-[Add application-specific troubleshooting tips, e.g., database connection issues.]
+- Push to GitHub: **git push origin feature/my-feature**
 
-Contributing
-Contributions are welcome! Follow these steps:
+- Open a Pull Request 🎉
 
-Fork the repository.
-Create a branch (git checkout -b feature/your-feature).
-Commit changes (git commit -m "Add your feature").
-Push to the branch (git push origin feature/your-feature).
-Open a pull request.
+# Thank You : Keep Coding

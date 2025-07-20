@@ -59,8 +59,7 @@ docker compose version
 - Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/pass-pilot.git
-cd pass-pilot
+git clone https://github.com/mr-dev-prince/pass-pilot.git
 ```
 
 - Create a .env file in both the frontend/ and backend/ directories as needed.
